@@ -8,7 +8,7 @@
 
 require 'rubygems'
 require 'sinatra'
-require 'datamapper'
+require 'data_mapper'
 require 'google/api_client'
 require 'yaml'
 
@@ -91,7 +91,7 @@ before do
     save_token_pair(session, @client)
   end
 
-  @prediction = @client.discovered_api('prediction', 'v1.4')
+  @prediction = @client.discovered_api('prediction', 'v1.5')
   unless @client.authorization.access_token || request.path_info =~ /^\/oauth2/
     redirect to('/oauth2authorize')
   end
@@ -124,7 +124,7 @@ get '/train' do
   return [
     200,
     [["Content-Type", "application/json"]],
-    ::JSON.generate({"status": "success"})
+    ::JSON.generate({"status" => "success"})
   ]
 end
 

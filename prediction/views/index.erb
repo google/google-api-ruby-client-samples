@@ -47,7 +47,7 @@
           var checkStatus = function () {
             logMessage("Checking training status...");
             $.getJSON("/checkStatus", function(data) {
-              if (data && data.status == 'success') {
+              if (data && data.response.trainingStatus == 'DONE') {
                 logMessage("Training complete.");
                 $("#predict").show();
                 $("#go").click(function () {
