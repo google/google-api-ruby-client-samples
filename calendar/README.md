@@ -23,7 +23,7 @@ sample.
 ## Setup Authentication
 
 This API uses OAuth 2.0. Learn more about Google APIs and OAuth 2.0 here:
-http://code.google.com/apis/accounts/docs/OAuth2.html
+https://developers.google.com/accounts/docs/OAuth2
 
 Or, if you'd like to dive right in, follow these steps.
  - Visit https://code.google.com/apis/console/ to register your application.
