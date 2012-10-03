@@ -62,41 +62,6 @@ class App < Sinatra::Base
       "Something went wrong."
     end
   end
-  
-  template :layout do
-    <<-ERB
-      <html>
-        <body style="font: 13px/16px arial,sans-serif;">
-          <%= yield %>
-        </body>
-      </html>
-    ERB
-  end
-
-  template :index do
-    <<-ERB
-      <div class="auth">
-        <button style="border-radius: 4px; padding: 8px;" onclick="window.location='/auth/google';">
-          <div style="display: inline-block; line-height: 0;">
-            <span style="float: left; font: bold 13px/16px arial,sans-serif; margin-right: 4px; margin-top: 7px;">Sign In</span>
-            <span style="float: left; font: 13px/16px arial,sans-serif; margin-right: 11px; margin-top: 7px;">on</span>
-            <div style="float: left;">
-              <img src="https://ssl.gstatic.com/images/icons/gplus-32.png" width="32" height="32" style="border: 0;">
-            </div>
-            <div style="clear: both;"></div>
-          </div>
-        </button>
-      </div>
-    ERB
-  end
-
-  template :whoami do
-    <<-ERB
-      <div class="me">
-        Hello, my name is <span style="font: bold 13px/16px arial,sans-serif;"><%= data.display_name %></span>.
-      </div>
-    ERB
-  end
 end
 
 use Rack::Session::Cookie
