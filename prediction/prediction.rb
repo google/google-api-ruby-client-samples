@@ -8,115 +8,48 @@
 
 require 'rubygems'
 require 'sinatra'
-require 'data_mapper'
 require 'google/api_client'
-require 'yaml'
 
 enable :sessions
 
-# Set up our token store
-DataMapper.setup(:default, 'sqlite::memory:')
-class TokenPair
-  include DataMapper::Resource
-
-  property :id, Serial
-  property :refresh_token, String, :length => 255
-  property :access_token, String, :length => 255
-  property :expires_in, Integer
-  property :issued_at, Integer
-
-  def update_token!(object)
-    self.refresh_token = object.refresh_token
-    self.access_token = object.access_token
-    self.expires_in = object.expires_in
-    self.issued_at = object.issued_at
-  end
-
-  def to_hash
-    return {
-      :refresh_token => refresh_token,
-      :access_token => access_token,
-      :expires_in => expires_in,
-      :issued_at => Time.at(issued_at)
-    }
-  end
-end
-TokenPair.auto_migrate!
-
-def save_token_pair(session, client)
-  token_pair = if session[:token_id]
-    TokenPair.first_or_create(:id => session[:token_id])
-  else
-    TokenPair.new
-  end
-  token_pair.update_token!(client.authorization)
-  if token_pair.save
-    session[:token_id] = token_pair.id
-  else
-    token_pair.errors.each do |e|
-      raise e
-    end
-  end
-end
-
 # FILL IN THIS SECTION
-# This is the name of the {bucket}/{object} you are using for the language
-# file.
 # ------------------------
-DATA_OBJECT = "bucket/object"
+DATA_OBJECT = "BUCKET/OBJECT" # This is the {bucket}/{object} name you are using for the language file.
+CLIENT_EMAIL = "YOUR_CLIENT_ID@developer.gserviceaccount.com" # Email of service account
+KEYFILE = 'YOUR_KEY_FILE.p12' # Filename of the private key
+PASSPHRASE = 'notasecret' # Passphrase for private key
 # ------------------------
 
-before do
-  # FILL IN THIS SECTION
-  # This will work if your yaml file is stored as .google-api.yaml
-  # ------------------------
-  oauth_yaml = YAML.load_file('.google-api.yaml')
-  @client = Google::APIClient.new
-  @client.authorization.client_id = oauth_yaml["client_id"]
-  @client.authorization.client_secret = oauth_yaml["client_secret"]
-  @client.authorization.scope = oauth_yaml["scope"]
-  @client.authorization.refresh_token = oauth_yaml["refresh_token"]
-  @client.authorization.access_token = oauth_yaml["access_token"]
-  # -----------------------
+configure do
+  client = Google::APIClient.new
+  
+  # Authorize service account
+  key = Google::APIClient::PKCS12.load_key(KEYFILE, PASSPHRASE)
+  asserter = Google::APIClient::JWTAsserter.new(
+     CLIENT_EMAIL,
+     'https://www.googleapis.com/auth/prediction',
+     key)
+  client.authorization = asserter.authorize() 
 
-  @client.authorization.redirect_uri = to('/oauth2callback')
+  prediction = client.discovered_api('prediction', 'v1.5')
 
-  if session[:token_id]
-    # Load the access token here if it's available
-    token_pair = TokenPair.get(session[:token_id])
-    @client.authorization.update_token!(token_pair.to_hash) if token_pair
-  end
-  if @client.authorization.refresh_token && @client.authorization.expired?
-    @client.authorization.fetch_access_token!
-    save_token_pair(session, @client)
-  end
-
-  @prediction = @client.discovered_api('prediction', 'v1.5')
-  unless @client.authorization.access_token || request.path_info =~ /^\/oauth2/
-    redirect to('/oauth2authorize')
-  end
+  set :api_client, client
+  set :prediction, prediction
 end
 
-get '/oauth2authorize' do
-  redirect @client.authorization.authorization_uri.to_s, 303
-end
-
-get '/oauth2callback' do
-  @client.authorization.fetch_access_token!
-  save_token_pair(session, @client)
-  redirect to('/')
-end
+def api_client; settings.api_client; end
+def prediction; settings.prediction; end
 
 get '/' do
   erb :index
 end
 
 get '/train' do
-  training = @prediction.trainedmodels.insert.request_schema.new
+  training = prediction.trainedmodels.insert.request_schema.new
   training.id = 'language-sample'
   training.storage_data_location = DATA_OBJECT
-  result = @client.execute(
-    :api_method => @prediction.trainedmodels.insert,
+  result = api_client.execute(
+    :api_method => prediction.trainedmodels.insert,
     :headers => {'Content-Type' => 'application/json'},
     :body_object => training
   )
@@ -129,8 +62,8 @@ get '/train' do
 end
 
 get '/checkStatus' do
-  result = @client.execute(
-    :api_method => @prediction.trainedmodels.get,
+  result = api_client.execute(
+    :api_method => prediction.trainedmodels.get,
     :parameters => {'id' => 'language-sample'}
   )
 
@@ -142,11 +75,11 @@ get '/checkStatus' do
 end
 
 post '/predict' do
-  input = @prediction.trainedmodels.predict.request_schema.new
+  input = prediction.trainedmodels.predict.request_schema.new
   input.input = {}
   input.input.csv_instance = [params["input"]]
-  result = @client.execute(
-    :api_method => @prediction.trainedmodels.predict,
+  result = api_client.execute(
+    :api_method => prediction.trainedmodels.predict,
     :parameters => {'id' => 'language-sample'},
     :headers => {'Content-Type' => 'application/json'},
     :body_object => input
