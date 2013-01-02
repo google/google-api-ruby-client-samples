@@ -1,3 +1,8 @@
+## Prerequisites
+
+Please make sure that you're running Ruby 1.8.7+ and you've run
+`bundle install` on the sample to install all prerequisites.
+
 # APIs Console Project Setup
 
 If you have not yet, you must set your APIs Console project to enable Prediction
@@ -61,7 +66,7 @@ At this, point, you should have
  
 We can now run the service! 
 
-    $ ruby prediction.rb
+    $ bundle exec ruby prediction.rb
 
 This should start a service on `http://localhost:4567`. When you hit the service,
 your ruby logs should show the Prediction API calls, and print the prediction
