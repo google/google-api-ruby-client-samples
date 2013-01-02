@@ -3,7 +3,7 @@ require 'google/api_client'
 require 'date'
 
 # Update these to match your own apps credentials
-service_account_email = '898243283568-tiq0mo1iql6rksgf4o5f3kgm5jg9p6nd@developer.gserviceaccount.com' # Email of service account
+service_account_email = 'yourapp@developer.gserviceaccount.com' # Email of service account
 key_file = 'privatekey.p12' # File containing your private key
 key_secret = 'notasecret' # Password to unlock private key
 profileID = '123456' # Analytics profile ID.

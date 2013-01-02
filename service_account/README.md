@@ -1,13 +1,11 @@
 # Calendar Ruby Sample
+
 This is a command line example of calling the Google Analytics API & service accounts. 
 
 ## Prerequisites
-Please make sure that all of these are installed before you try to run the
-sample.
 
-- Ruby 1.8.7+
-- A few gems (run 'sudo gem install <gem name>' to install)
-    - google-api-client
+Please make sure that you're running Ruby 1.8.7+ and you've run
+`bundle install` on the sample to install all prerequisites.
 
 ## Setup Authentication
 
@@ -38,5 +36,5 @@ directory. If not check out the code to a local directory.
 
 1. Run the application
 
-        $ ruby analytics.rb
+        $ bundle exec ruby analytics.rb
 
