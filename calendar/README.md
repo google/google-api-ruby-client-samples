@@ -1,4 +1,5 @@
 # Calendar Ruby Sample
+
 This is a simple starter project written in Ruby which provides a minimal
 example of Google Calendar integration within a Sinatra web application.
 
@@ -7,15 +8,9 @@ this starter project provides a great place to start your experimentation into
 the API.
 
 ## Prerequisites
-Please make sure that all of these are installed before you try to run the
-sample.
 
-- Ruby 1.8.7+
-- Ruby Gems 1.3.7+
-- Are you on a Mac? If so, be sure you have XCode 3.2+
-- A few gems (run 'sudo gem install <gem name>' to install)
-    - sinatra
-    - google-api-client
+Please make sure that you're running Ruby 1.8.7+ and you've run
+`bundle install` on the sample to install all prerequisites.
 
 ## Setup Authentication
 
@@ -48,7 +43,7 @@ directory. If not check out the code to a local directory.
 
 1. Start up the embedded Sinatra web server
 
-        $ ruby calendar.rb
+        $ bundle exec ruby calendar.rb
 
 2. Open your web browser and see your activities! Go to `http://localhost:4567/`
 

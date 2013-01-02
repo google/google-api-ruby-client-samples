@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'google/api_client'
 require 'sinatra'
-require 'google/api_client'
 require 'logger'
 
 enable :sessions
