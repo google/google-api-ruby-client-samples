@@ -3,8 +3,8 @@ require 'google/api_client'
 require 'date'
 
 # Update these to match your own apps credentials
-service_account_email = '...@developer.gserviceaccount.com' # Email of service account
-key_file = 'keyfile.p12' # File containing your private key
+service_account_email = '898243283568-tiq0mo1iql6rksgf4o5f3kgm5jg9p6nd@developer.gserviceaccount.com' # Email of service account
+key_file = 'privatekey.p12' # File containing your private key
 key_secret = 'notasecret' # Password to unlock private key
 profileID = '123456' # Analytics profile ID.
 
@@ -12,15 +12,16 @@ profileID = '123456' # Analytics profile ID.
 client = Google::APIClient.new()
 
 # Load our credentials for the service account
-key = Google::APIClient::PKCS12.load_key(key_file, key_secret)
-asserter = Google::APIClient::JWTAsserter.new(
-   service_account_email,
-   'https://www.googleapis.com/auth/analytics.readonly',
-   key)
-
+key = Google::APIClient::KeyUtils.load_from_pkcs12(key_file, key_secret)
+client.authorization = Signet::OAuth2::Client.new(
+  :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
+  :audience => 'https://accounts.google.com/o/oauth2/token',
+  :scope => 'https://www.googleapis.com/auth/analytics.readonly',
+  :issuer => service_account_email,
+  :signing_key => key)
 
 # Request a token for our service account
-client.authorization = asserter.authorize() 
+client.authorization.fetch_access_token!
 
 analytics = client.discovered_api('analytics','v3')
 
