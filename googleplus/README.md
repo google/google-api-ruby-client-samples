@@ -1,7 +1,9 @@
 # Google+ Ruby Sample
+
 This is a simple Sinatra web application that calls the Google+ APIs in ruby. 
 
 ## Prerequisites
+
 Please make sure that you're running Ruby 1.8.7+ and you've run
 `bundle install` on the sample to install all prerequisites.
 
