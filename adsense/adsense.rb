@@ -5,11 +5,9 @@ require 'google/api_client/client_secrets'
 require 'google/api_client/auth/file_storage'
 require 'google/api_client/auth/installed_app'
 require 'logger'
-require 'json'
 
 API_VERSION = 'v1.3'
 CREDENTIAL_STORE_FILE = "#{$0}-oauth2.json"
-DISCOVERY_CACHE = 'discovery.cache'
 
 # Handles authentication and loading of the API.
 def setup()

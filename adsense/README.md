@@ -23,9 +23,8 @@ Or, if you'd like to dive right in, follow these steps.
  - Click on "API Access" in the left column
  - Click the button labeled "Create an OAuth2 client ID"
  - Give your application a name and click "Next"
- - Select "Web Application" as the "Application type"
- - Under "Your Site or Hostname" select "http://" as the protocol and enter
-   "localhost" for the domain name
+ - Select "Installed Application" as the "Application type"
+ - Under "Installed application type" select "Other"
  - Click "Create client ID"
  - Click "Download JSON" and save the file as `client_secrets.json` in your
    home directory
