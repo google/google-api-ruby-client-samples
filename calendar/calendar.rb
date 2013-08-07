@@ -1,9 +1,13 @@
 require 'rubygems'
 require 'google/api_client'
+require 'google/api_client/client_secrets'
+require 'google/api_client/auth/file_storage'
 require 'sinatra'
 require 'logger'
 
 enable :sessions
+
+CREDENTIAL_STORE_FILE = "#{$0}-oauth2.json"
 
 def logger; settings.logger end
 
@@ -27,11 +31,18 @@ configure do
   log_file.sync = true
   logger = Logger.new(log_file)
   logger.level = Logger::DEBUG
+
+  client = Google::APIClient.new(:application_name => 'Ruby Calendar sample',
+        :application_version => '1.0.0')
   
-  client = Google::APIClient.new
-  client.authorization.client_id = '...'
-  client.authorization.client_secret = '...'
-  client.authorization.scope = 'https://www.googleapis.com/auth/calendar'
+  file_storage = Google::APIClient::FileStorage.new(CREDENTIAL_STORE_FILE)
+  if file_storage.authorization.nil?
+    client_secrets = Google::APIClient::ClientSecrets.load
+    client.authorization = client_secrets.to_authorization
+    client.authorization.scope = 'https://www.googleapis.com/auth/calendar'
+  else
+    client.authorization = file_storage.authorization
+  end
 
   calendar = client.discovered_api('calendar', 'v3')
 
@@ -48,11 +59,14 @@ before do
 end
 
 after do
-  # Serialize the access/refresh token to the session
+  # Serialize the access/refresh token to the session and credential store.
   session[:access_token] = user_credentials.access_token
   session[:refresh_token] = user_credentials.refresh_token
   session[:expires_in] = user_credentials.expires_in
   session[:issued_at] = user_credentials.issued_at
+
+  file_storage = Google::APIClient::FileStorage.new(CREDENTIAL_STORE_FILE)
+  file_storage.write_credentials(user_credentials)
 end
 
 get '/oauth2authorize' do
