@@ -18,7 +18,7 @@ def setup()
   logger.level = Logger::DEBUG
 
   client = Google::APIClient.new(:application_name => 'Ruby AdSense sample',
-        :application_version => '1.0.0')
+                                 :application_version => '1.0.0')
 
   # FileStorage stores auth credentials in a file, so they survive multiple runs
   # of the application. This avoids prompting the user for authorization every
@@ -42,7 +42,8 @@ def setup()
 
   adsense = nil
   # Load cached discovered API, if it exists. This prevents retrieving the
-  # discovery document on every run, saving a round-trip to API servers.
+  # discovery document on every run, saving a round-trip to the discovery
+  # service.
   if File.exists? CACHED_API_FILE
     File.open(CACHED_API_FILE) do |file|
       adsense = Marshal.load(file)
