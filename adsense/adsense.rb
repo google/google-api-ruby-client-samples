@@ -7,6 +7,7 @@ require 'google/api_client/auth/installed_app'
 require 'logger'
 
 API_VERSION = 'v1.3'
+CACHED_API_FILE = "adsense-#{API_VERSION}.cache"
 CREDENTIAL_STORE_FILE = "#{$0}-oauth2.json"
 
 # Handles authentication and loading of the API.
@@ -39,7 +40,19 @@ def setup()
     client.authorization = file_storage.authorization
   end
 
-  adsense = client.discovered_api('adsense', API_VERSION)
+  adsense = nil
+  # Load cached discovered API, if it exists. This prevents retrieving the
+  # discovery document on every run, saving a round-trip to API servers.
+  if File.exists? CACHED_API_FILE
+    File.open(CACHED_API_FILE) do |file|
+      adsense = Marshal.load(file)
+    end
+  else
+    adsense = client.discovered_api('adsense', API_VERSION)
+    File.open(CACHED_API_FILE, 'w') do |file|
+      Marshal.dump(adsense, file)
+    end
+  end
 
   return client, adsense
 end
