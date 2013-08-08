@@ -23,8 +23,8 @@ Console](https://code.google.com/apis/console/).
       2. Select **Other** for the **Installed application type**.
       3. Click **Create Client ID**.
 6. In the **API Access** page, locate the section **Client ID for installed
-   applications** and note or copy the two pieces of information you'll need
-   later to run the sample: the **Client ID** and the **Client Secret**
+   applications**, and click "Download JSON" and save the file as 
+   `client_secrets.json` in your home directory.
 
 ## Install the Google Client Library
 
@@ -35,19 +35,7 @@ library.
 
 ## Set up the sample
 
-You'll need to create two files: a test file to upload to Drive (in this case
-`document.txt`), and the given sample code, modified to include the unique
-**Client ID** and **Client Secret** you created in the "Enable the Drive API"
-step.
-
-
-1. Create a text file named `document.txt`, containing the text `Hello world!`.
-2. After following the directions below to copy source code, replace
-   `YOUR_CLIENT_ID` with the **Client ID** you generated in the "Enable the
-   Drive API" step.
-3. Replace `YOUR_CLIENT_SECRET` with your **Client Secret**, also generated
-   previously.
-
+Create a text file named `document.txt`, containing the text `Hello world!`.
 
 ## Run the Sample
 
@@ -62,8 +50,8 @@ authorize the sample.
 2. If you are not already logged into your Google account, you will be prompted
    to log in.  If you are logged into multiple Google accounts, you will be
    asked to select one account to use for the authorization.
-3. Copy the code you're given after browsing to the link, and paste it into the 
-   prompt `Enter authorization code:`.  Click **Enter**.
+3. The application automatically receives the authentication code and resumes
+   operation.
 
 When you finish these steps, `document.txt` is now stored in Google Drive.
 The command-line samples print Information about the Google Drive file to the screen.

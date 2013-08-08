@@ -21,7 +21,9 @@ PASSPHRASE = 'notasecret' # Passphrase for private key
 # ------------------------
 
 configure do
-  client = Google::APIClient.new
+  client = Google::APIClient.new(
+    :application_name => 'Ruby Prediction sample',
+    :application_version => '1.0.0')
   
   # Authorize service account
   key = Google::APIClient::PKCS12.load_key(KEYFILE, PASSPHRASE)
@@ -31,6 +33,10 @@ configure do
      key)
   client.authorization = asserter.authorize() 
 
+  # Since we're saving the API definition to the settings, we're only retrieving
+  # it once (on server start) and saving it between requests.
+  # If this is still an issue, you could serialize the object and load it on
+  # subsequent runs.
   prediction = client.discovered_api('prediction', 'v1.5')
 
   set :api_client, client
