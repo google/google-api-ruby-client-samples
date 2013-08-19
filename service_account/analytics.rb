@@ -2,6 +2,9 @@
 require 'google/api_client'
 require 'date'
 
+API_VERSION = 'v3'
+CACHED_API_FILE = "analytics-#{API_VERSION}.cache"
+
 # Update these to match your own apps credentials
 service_account_email = 'yourapp@developer.gserviceaccount.com' # Email of service account
 key_file = 'privatekey.p12' # File containing your private key
@@ -9,7 +12,9 @@ key_secret = 'notasecret' # Password to unlock private key
 profileID = '123456' # Analytics profile ID.
 
 
-client = Google::APIClient.new()
+client = Google::APIClient.new(
+  :application_name => 'Ruby Service Accounts sample',
+  :application_version => '1.0.0')
 
 # Load our credentials for the service account
 key = Google::APIClient::KeyUtils.load_from_pkcs12(key_file, key_secret)
@@ -23,7 +28,19 @@ client.authorization = Signet::OAuth2::Client.new(
 # Request a token for our service account
 client.authorization.fetch_access_token!
 
-analytics = client.discovered_api('analytics','v3')
+analytics = nil
+# Load cached discovered API, if it exists. This prevents retrieving the
+# discovery document on every run, saving a round-trip to the discovery service.
+if File.exists? CACHED_API_FILE
+  File.open(CACHED_API_FILE) do |file|
+    analytics = Marshal.load(file)
+  end
+else
+  analytics = client.discovered_api('analytics', API_VERSION)
+  File.open(CACHED_API_FILE, 'w') do |file|
+    Marshal.dump(analytics, file)
+  end
+end
 
 startDate = DateTime.now.prev_month.strftime("%Y-%m-%d")
 endDate = DateTime.now.strftime("%Y-%m-%d")
