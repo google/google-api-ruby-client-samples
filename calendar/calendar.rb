@@ -32,8 +32,9 @@ configure do
   logger = Logger.new(log_file)
   logger.level = Logger::DEBUG
 
-  client = Google::APIClient.new(:application_name => 'Ruby Calendar sample',
-        :application_version => '1.0.0')
+  client = Google::APIClient.new(
+    :application_name => 'Ruby Calendar sample',
+    :application_version => '1.0.0')
   
   file_storage = Google::APIClient::FileStorage.new(CREDENTIAL_STORE_FILE)
   if file_storage.authorization.nil?
@@ -44,6 +45,10 @@ configure do
     client.authorization = file_storage.authorization
   end
 
+  # Since we're saving the API definition to the settings, we're only retrieving
+  # it once (on server start) and saving it between requests.
+  # If this is still an issue, you could serialize the object and load it on
+  # subsequent runs.
   calendar = client.discovered_api('calendar', 'v3')
 
   set :logger, logger
@@ -83,7 +88,7 @@ end
 
 get '/' do
   # Fetch list of events on the user's default calandar
-  result = api_client.execute(:api_method => settings.calendar.events.list,
+  result = api_client.execute(:api_method => calendar_api.events.list,
                               :parameters => {'calendarId' => 'primary'},
                               :authorization => user_credentials)
   [result.status, {'Content-Type' => 'application/json'}, result.data.to_json]

@@ -8,12 +8,25 @@ CLIENT_SECRETS = Google::APIClient::ClientSecrets.load
 
 class App < Sinatra::Base
   def client
-    c = (Thread.current[:client] ||= Google::APIClient.new)
+    c = (Thread.current[:client] ||= 
+        Google::APIClient.new(:application_name => 'Ruby Google+ sample',
+                              :application_version => '1.0.0'))
     # It's really important to clear these out,
     # since we reuse client objects across requests
     # for caching and performance reasons.
     c.authorization.clear_credentials!
     return c
+  end
+
+  def plus_api; settings.plus; end
+
+  configure do
+    # Since we're saving the API definition to the settings, we're only
+    # retrieving it once (on server start) and saving it between requests.
+    # If this is still an issue, you could serialize the object and load it on
+    # subsequent runs.
+    plus = Google::APIClient.new.discovered_api('plus', 'v1')
+    set :plus, plus
   end
   
   get '/' do
@@ -28,14 +41,11 @@ class App < Sinatra::Base
         :access_token => session['credentials']['access_token'],
         :refresh_token => session['credentials']['refresh_token']
       )
-
-      # Get a reference to the discovery document.
-      plus = client.discovered_api('plus', 'v1')
       
       # Execute the profile API call.
       get_profile = lambda do
         client.execute(
-          :api_method => plus.people.get,
+          :api_method => plus_api.people.get,
           :parameters => {'userId' => 'me'},
           :authorization => authorization
         )
@@ -50,7 +60,7 @@ class App < Sinatra::Base
       # Execute the activities API call.
       get_activities = lambda do
         client.execute(
-          :api_method => plus.activities.list,
+          :api_method => plus_api.activities.list,
           :parameters => {'userId' => 'me', 'collection' => 'public'},
           :authorization => authorization
         )
