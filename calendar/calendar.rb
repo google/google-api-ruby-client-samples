@@ -58,7 +58,7 @@ end
 
 before do
   # Ensure user has authorized the app
-  unless user_credentials.access_token || request.path_info =~ /^\/oauth2/
+  unless user_credentials.access_token || request.path_info =~ /\A\/oauth2/
     redirect to('/oauth2authorize')
   end
 end
