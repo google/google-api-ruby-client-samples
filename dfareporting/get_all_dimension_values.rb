@@ -12,7 +12,7 @@ dimension = {
   :endDate => '2013-12-31'
 }
 
-# Get all report files
+# Get all dimension values
 result = client.execute(
   :api_method => dfareporting.dimension_values.query,
   :body_object => dimension,
