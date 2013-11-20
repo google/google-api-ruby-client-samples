@@ -1,6 +1,6 @@
-# DFA Reporting Ruby Examples
+# DFA Reporting Ruby Samples
  
-This is a collection of examples written in Ruby which provide a starting place
+This is a collection of samples written in Ruby which provide a starting place
 for your experimentation into the DFA Reporting API.
 
 ## Prerequisites
@@ -30,7 +30,7 @@ Or, if you'd like to dive right in, follow these steps.
 I'm assuming you've checked out the code and are reading this from a local
 directory. If not check out the code to a local directory.
 
-1. Start up an example, e.g.
+1. Start up a sample, e.g.
 
         $ ruby create_report.rb <profile_id>
 
