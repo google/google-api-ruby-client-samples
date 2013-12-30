@@ -28,7 +28,7 @@ require 'google/api_client/auth/file_storage'
 require 'google/api_client/auth/installed_app'
 
 API_NAME = 'adsense'
-API_VERSION = 'v1.3'
+API_VERSION = 'v1.4'
 API_SCOPE = 'https://www.googleapis.com/auth/adsense.readonly'
 CREDENTIAL_STORE_FILE = "#{API_NAME}-oauth2.json"
 

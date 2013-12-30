@@ -64,6 +64,9 @@ def generate_report(adsense, options)
     end
     puts
   end
+
+  # Display effective date range.
+  puts 'Report from %s to %s.' % [result.data.startDate, result.data.endDate]
 end
 
 

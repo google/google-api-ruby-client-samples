@@ -18,27 +18,25 @@
 #           See the License for the specific language governing permissions and
 #           limitations under the License.
 #
-# Gets all alerts available for the logged in user's default account.
+# Gets all payments available for the logged in user's default account.
 #
-# Tags: alerts.list, alerts.delete
+# Tags: payments.list
 
 require 'adsense_common'
 
 # The maximum number of results to be returned in a page.
 MAX_PAGE_SIZE = 50
 
-def get_all_alerts(adsense)
-  request = adsense.alerts.list(:maxResults => MAX_PAGE_SIZE)
+def get_all_payments(adsense)
+  request = adsense.payments.list(:maxResults => MAX_PAGE_SIZE)
 
   loop do
     result = request.execute
 
-    result.data.items.each do |alert|
-      puts 'Alert id "%s" with severity "%s" and type "%s" was found.'  %
-        [alert.id, alert.severity, alert.type]
-
-      # Uncomment to dismiss alert. Note that this cannot be undone.
-      #adsense.alerts.delete(:alertId => alert.id).execute
+    result.data.items.each do |payment|
+      puts 'Payment with id "%s" of %s %s and date %s was found.'  %
+        [payment.id, payment.paymentAmount, payment.paymentAmountCurrencyCode,
+         payment['paymentDate'] ? payment['paymentDate'] : 'unknown']
     end
 
     break unless result.next_page_token
@@ -49,5 +47,5 @@ end
 
 if __FILE__ == $0
   adsense = service_setup()
-  get_all_alerts(adsense)
+  get_all_payments(adsense)
 end
