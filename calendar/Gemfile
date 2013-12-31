@@ -1,4 +1,4 @@
 source :rubygems
 
-gem 'google-api-client', '>= 0.6'
+gem 'google-api-client', '>= 0.7.0rc2'
 gem 'sinatra', '>= 1.3'
