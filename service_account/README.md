@@ -1,4 +1,4 @@
-# Calendar Ruby Sample
+# Google Analytics API & Service Accounts Ruby Sample
 
 This is a command line example of calling the Google Analytics API & service accounts. 
 
