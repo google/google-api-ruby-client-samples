@@ -25,7 +25,7 @@ Or, if you'd like to dive right in, follow these steps.
 
 Also:
  - In analytics, invite the service account email as a user to the project
- - Gather your [see https://developers.google.com/analytics/devguides/reporting/core/v3/#started](Profile ID)
+ - Gather your [Profile Id][pi]
 
 Edit analytics.rb with your apps' ID & credentials along with your analytics profile ID:
 
@@ -38,3 +38,4 @@ directory. If not check out the code to a local directory.
 
         $ bundle exec ruby analytics.rb
 
+[pi]: https://developers.google.com/analytics/devguides/reporting/core/v3/#started
