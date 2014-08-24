@@ -1,0 +1,5 @@
+source :rubygems
+
+gem 'google-api-client', '>= 0.7.1'
+gem 'hash-params', :require => 'hash_params'
+gem 'pry'

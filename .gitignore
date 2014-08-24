@@ -7,3 +7,5 @@ heckling
 pkg
 specdoc
 .google-api.yaml
+.idea
+*.local.yml
