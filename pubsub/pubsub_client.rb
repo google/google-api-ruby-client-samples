@@ -11,7 +11,6 @@ require 'base64'
 
 require_relative 'google_api_client'
 
-config = YAML::load_file(File.join(__dir__, 'pubsub.local.yml'))
 
 class PubSubTopic
   def initialize(client, topic_name)
@@ -138,31 +137,28 @@ class PubSub
     {"name" => topic_path}
   end
 
-
 end
 
 
-client = GoogleApiClient.new(config)
-@pubsub=PubSub.new(client, config['project_id'])
+if __FILE__ == $0
+  config = YAML::load_file(File.join(__dir__, 'pubsub.local.yml'))
+  client = GoogleApiClient.new(config)
+  @pubsub=PubSub.new(client, config['project_id'])
 
 
-binding.pry
-topic_name        = 'test-topic'
-subscription_name = 'test-subscription'
+  topic_name        = 'test-topic'
+  subscription_name = 'test-subscription'
 
-@pubsub.find_or_create_topic(topic_name)
-@pubsub.find_or_create_subscription(topic_name, subscription_name, 600)
-
-
-response = @pubsub.publish('test-topic', "This is a message posted to test_topic")
-
-10.times do
+  @pubsub.find_or_create_topic(topic_name)
+  @pubsub.find_or_create_subscription(topic_name, subscription_name, 600)
 
 
-  ack_id, data = @pubsub.pull_from_subscription('test-subscription')
-  binding.pry
-  ack          = @pubsub.acknowledge(subscription_name, ack_id)
+  response = @pubsub.publish('test-topic', "This is a message posted to test_topic")
+
+  10.times do
+    ack_id, data = @pubsub.pull_from_subscription('test-subscription')
+    ack          = @pubsub.acknowledge(subscription_name, ack_id)
+  end
+
 end
-
-binding.pry
 
