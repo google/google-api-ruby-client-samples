@@ -21,7 +21,7 @@ GEM
       retriable (>= 1.4)
       signet (>= 0.5.0)
       uuidtools (>= 2.1.0)
-    hash-params (0.0.1)
+    hash_params (0.0.2)
     jwt (1.0.0)
     launchy (2.4.2)
       addressable (~> 2.3)
@@ -46,5 +46,5 @@ PLATFORMS
 
 DEPENDENCIES
   google-api-client (>= 0.7.1)
-  hash-params
+  hash_params
   pry

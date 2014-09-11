@@ -37,7 +37,6 @@ class GoogleApiClient
       authorise @opts[:scope], @opts[:service_email], @opts[:key_path] , true
     end
 
-    binding.pry
     #if api is specified then discover it
     if @opts[:api_name] && @opts[:api_version]
       discover(@opts[:api_name] ,  @opts[:api_version])
