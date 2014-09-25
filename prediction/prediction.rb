@@ -18,6 +18,7 @@ DATA_OBJECT = "BUCKET/OBJECT" # This is the {bucket}/{object} name you are using
 CLIENT_EMAIL = "YOUR_CLIENT_ID@developer.gserviceaccount.com" # Email of service account
 KEYFILE = 'YOUR_KEY_FILE.p12' # Filename of the private key
 PASSPHRASE = 'notasecret' # Passphrase for private key
+PROJECT = 'YOUR_PROJECT_ID' # The id of your project
 # ------------------------
 
 configure do
@@ -29,7 +30,7 @@ configure do
   key = Google::APIClient::PKCS12.load_key(KEYFILE, PASSPHRASE)
   asserter = Google::APIClient::JWTAsserter.new(
      CLIENT_EMAIL,
-     'https://www.googleapis.com/auth/prediction',
+     ['https://www.googleapis.com/auth/prediction','https://www.googleapis.com/auth/devstorage.full_control'],
      key)
   client.authorization = asserter.authorize() 
 
@@ -37,7 +38,7 @@ configure do
   # it once (on server start) and saving it between requests.
   # If this is still an issue, you could serialize the object and load it on
   # subsequent runs.
-  prediction = client.discovered_api('prediction', 'v1.5')
+  prediction = client.discovered_api('prediction', 'v1.6')
 
   set :api_client, client
   set :prediction, prediction
@@ -57,7 +58,8 @@ get '/train' do
   result = api_client.execute(
     :api_method => prediction.trainedmodels.insert,
     :headers => {'Content-Type' => 'application/json'},
-    :body_object => training
+    :body_object => training,
+    :parameters => {'project' => PROJECT}
   )
 
   return [
@@ -70,7 +72,7 @@ end
 get '/checkStatus' do
   result = api_client.execute(
     :api_method => prediction.trainedmodels.get,
-    :parameters => {'id' => 'language-sample'}
+    :parameters => {'id' => 'language-sample', 'project' => PROJECT}
   )
 
   return [
@@ -86,7 +88,7 @@ post '/predict' do
   input.input.csv_instance = [params["input"]]
   result = api_client.execute(
     :api_method => prediction.trainedmodels.predict,
-    :parameters => {'id' => 'language-sample'},
+    :parameters => {'id' => 'language-sample', 'project' => PROJECT},
     :headers => {'Content-Type' => 'application/json'},
     :body_object => input
   )
