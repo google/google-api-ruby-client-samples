@@ -1,0 +1,8 @@
+## Include correct information about the app and key details
+## And rename this file to ga_config.yml
+service_account_email: email_id_of_yourapp@developer.gserviceaccount.com
+key_file: filename-of-privatekey.p12
+key_secret: notasecret
+profileID: 123456
+application_name: my-analytics
+application_version: 1.0

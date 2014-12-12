@@ -1,0 +1,49 @@
+VisitsCount:
+  dimension: ga:date
+  metric: 'ga:sessions,ga:users,ga:newUsers,ga:percentNewSessions,ga:sessionDuration,ga:avgSessionDuration'
+  sort: ga:date
+VisitCountvisitorType:
+  dimension: 'ga:date,ga:userType'
+  metric: 'ga:sessions,ga:users,ga:sessionDuration,ga:avgSessionDuration'
+  sort: 'ga:userType,ga:date'
+DaysSinceLastVisit:
+  dimension: ga:daysSinceLastSession
+  metric: 'ga:sessions,ga:users'
+  sort: -ga:daysSinceLastSession
+VisitsCountry:
+  dimension: ga:country
+  metric: 'ga:users,ga:sessions'
+  sort: -ga:sessions
+# The day of the week. A one-digit number from 0 (Sunday) to 6 (Saturday).
+DayOfWeekName:
+  dimension: 'ga:week,ga:nthWeek,ga:dayOfWeek,ga:dayOfWeekName'
+  metric: ga:sessions
+  sort: 'ga:dayOfWeek,ga:nthWeek'
+HourOfDayMonth:
+  dimension: 'ga:month,ga:nthMonth,ga:hour'
+  metric: ga:sessions
+  sort: 'ga:hour,ga:nthMonth'
+DailydeviceCategory:
+  dimension: 'ga:date,ga:deviceCategory'
+  metric: ga:sessions
+  sort: 'ga:deviceCategory,ga:date'
+DeviceCategory:
+  dimension: ga:deviceCategory
+  metric: ga:sessions
+  sort: ga:sessions
+ScreenResolution:
+  dimension: ga:screenResolution
+  metric: ga:sessions
+  sort: -ga:sessions
+VisitLengthVisitorType:
+  dimension: 'ga:sessionDurationBucket,ga:userType'
+  metric: 'ga:sessions'
+  sort: -ga:sessions
+visitCountVisitors:
+  dimension: ga:sessionCount
+  metric: 'ga:users,ga:sessions'
+  sort: -ga:sessions
+#HourOfDayWeek:
+#  dimension: 'ga:week,ga:nthWeek,ga:hour'
+#  metric: ga:sessions
+#  sort: 'ga:hour,ga:nthWeek'
