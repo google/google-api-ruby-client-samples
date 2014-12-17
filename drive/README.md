@@ -44,7 +44,7 @@ library, and set up the sample source code, the sample is ready to run.  The
 command-line samples provide a link you'll need to visit in order to
 authorize the sample.
 
-    bundle exec ruby quickstart.rb
+    bundle exec ruby drive.rb
 
 1. Browse to the provided URL in your web browser.
 2. If you are not already logged into your Google account, you will be prompted
