@@ -43,7 +43,7 @@ Or, if you'd like to dive right in, follow these steps.
  - Change the "Redirect URI" to  "http://localhost:4567/oauth2callback" and "Web Origin" to "http://localhost:4567"
 
 
-Downlaod the JSON file with the OAuth2 credentials and either rename it to "calendar.rb-oauth2.json" or 
+Download the JSON file with the OAuth2 credentials and either rename it to "calendar.rb-oauth2.json" or 
 rename it to client_secrets.json, with this the api-client library picks the credentials without further configuration.
 
 ## Running the Sample
