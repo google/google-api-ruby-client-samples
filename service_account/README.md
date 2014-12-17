@@ -27,7 +27,12 @@ Also:
  - In analytics, invite the service account email as a user to the project
  - Gather your [see https://developers.google.com/analytics/devguides/reporting/core/v3/#started](Profile ID)
 
-Edit analytics.rb with your apps' ID & credentials along with your analytics profile ID:
+Edit ga_config.yml with your apps' ID & credentials along with your analytics profile ID:
+
+Edit analytics.rb with start and end date limits for data extraction
+
+Edit ga_attributes.yml with details of dimensions and metrics to generate reports
+hash key in the yml file will be used to name the file to write each report
 
 ## Running the Sample
 
