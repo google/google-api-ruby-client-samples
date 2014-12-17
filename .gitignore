@@ -8,3 +8,4 @@ pkg
 specdoc
 .google-api.yaml
 ga_config.yml
+client_secrets.json
