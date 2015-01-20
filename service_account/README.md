@@ -25,7 +25,7 @@ Or, if you'd like to dive right in, follow these steps.
 
 Also:
  - In analytics, invite the service account email as a user to the project
- - Gather your [Profile Id][pi]
+ - Gather your [Profile Id][pi] (which is not your Account ID but your View ID)
 
 Edit ga_config.yml with your apps' ID & credentials along with your analytics profile ID:
 
