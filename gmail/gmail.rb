@@ -62,7 +62,7 @@ get '/' do
   @result = api_client.execute(
     api_method: gmail_api.users.messages.list,
     parameters: {
-        userId: "leckylao@gmail.com",
+        userId: "your@gmail.com",
     },
     headers: {'Content-Type' => 'application/json'})
   erb :index
