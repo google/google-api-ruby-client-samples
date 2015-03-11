@@ -43,7 +43,7 @@ if File.exists? CACHED_API_FILE
     @analytics = Marshal.load(file)
   end
 else
-  @analytics = client.discovered_api('analytics', API_VERSION)
+  @analytics = @client.discovered_api('analytics', API_VERSION)
   File.open(CACHED_API_FILE, 'w') do |file|
     Marshal.dump(@analytics, file)
   end
