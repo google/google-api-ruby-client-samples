@@ -31,20 +31,21 @@ Or, if you'd like to dive right in, follow these steps.
    "localhost" for the domain name
  - click "Create client ID"
 
-
 **New Google Developers Console**
 
- - Visit https://code.google.com/apis/console/ to register your application.
+ - Visit https://console.developers.google.com/project to register your application.
  - Click "APIs" within the "API's & auth" section in the left column
  - Locate the "Calendar API" and activate the access to it.
- - Click "Registered apps" then click "REGISTER APP"
- - Give your application a name and Select "Web application" for the "Platform" then click "Register"
- - To setup your application's authorization credentials, click on "OAuth 2.0 Client ID"
- - Change the "Redirect URI" to  "http://localhost:4567/oauth2callback" and "Web Origin" to "http://localhost:4567"
-
+ - Click "Credentials" within the "API's & auth" section in the left column
+ - Click "Create new Client ID"
+ - Select "Web application"
+ - Click "Configure consent screen"
+ - Fill in the forms and click "Save"
+ - Click "Create Client ID"
+ - Change the "Redirect URI" to  "http://localhost:4567/oauth2callback"
 
 Download the JSON file with the OAuth2 credentials and either rename it to "calendar.rb-oauth2.json" or 
-rename it to client_secrets.json, with this the api-client library picks the credentials without further configuration.
+rename it to "client_secrets.json", with this the api-client library picks the credentials without further configuration.
 
 ## Running the Sample
 
