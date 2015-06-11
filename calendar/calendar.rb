@@ -9,7 +9,7 @@ enable :sessions
 
 CREDENTIAL_STORE_FILE = "#{$0}-oauth2.json"
 
-def logger; settings.logger end
+def logger; settings.logger; end
 
 def api_client; settings.api_client; end
 
@@ -35,7 +35,7 @@ configure do
   client = Google::APIClient.new(
     :application_name => 'Ruby Calendar sample',
     :application_version => '1.0.0')
-  
+
   file_storage = Google::APIClient::FileStorage.new(CREDENTIAL_STORE_FILE)
   if file_storage.authorization.nil?
     client_secrets = Google::APIClient::ClientSecrets.load
