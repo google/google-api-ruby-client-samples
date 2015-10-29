@@ -93,3 +93,58 @@ get '/' do
                               :authorization => user_credentials)
   [result.status, {'Content-Type' => 'application/json'}, result.data.to_json]
 end
+
+get '/list_calendars' do
+  # List all calendars
+
+  result = api_client.execute(:api_method => calendar_api.calendar_list.list)
+  [result.status, {'Content-Type' => 'application/json'}, result.data.to_json]
+end
+
+get '/list_settings' do
+  # List all settings
+
+  result = api_client.execute(:api_method => calendar_api.settings.list)
+  [result.status, {'Content-Type' => 'application/json'}, result.data.items.to_json]
+end
+
+get '/new_sample_event' do
+  # Load a sample event on primary calendar
+
+  event = {
+      'summary' => 'Google I/O 2015',
+      'location' => '800 Howard St., San Francisco, CA 94103',
+      'description' => 'A chance to hear more about Google\'s developer products.',
+      'start' => {
+          'dateTime' => '2015-05-28T09:00:00-07:00',
+          'timeZone' => 'America/Los_Angeles',
+      },
+      'end' => {
+          'dateTime' => '2015-05-28T17:00:00-07:00',
+          'timeZone' => 'America/Los_Angeles',
+      },
+      'recurrence' => [
+          'RRULE:FREQ=DAILY;COUNT=2'
+      ],
+      'attendees' => [
+          {'email' => 'lpage@example.com'},
+          {'email' => 'sbrin@example.com'},
+      ],
+      'reminders' => {
+          'useDefault' => false,
+          'overrides' => [
+              {'method' => 'email', 'minutes' => 24 * 60},
+              {'method' => 'popup', 'minutes' => 10},
+          ],
+      },
+  }
+
+  api_client.execute!(
+      :api_method => calendar_api.events.insert,
+      :parameters => {
+          :calendarId => 'primary'
+      },
+      :body_object => event)
+
+  redirect to('/')
+end
