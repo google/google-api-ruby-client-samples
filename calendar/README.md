@@ -58,3 +58,17 @@ directory. If not check out the code to a local directory.
 2. Open your web browser and see your activities! Go to `http://localhost:4567/`
 
 3. Be inspired and start hacking an amazing new web app!
+
+## Other samples
+
+### List available calendars
+
+Go to `http://localhost:4567/list_calendars`
+
+### List settings
+
+Go to `http://localhost:4567/list_settings`
+
+### Add a sample event to the primary calendar
+
+Go to `http://localhost:4567/new_sample_event`
