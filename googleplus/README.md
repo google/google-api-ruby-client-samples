@@ -1,6 +1,6 @@
 # Google+ Ruby Sample
 
-This is a simple Sinatra web application that calls the Google+ APIs in ruby. 
+This is a simple Sinatra web application that calls the Google+ APIs in ruby.
 
 ## Prerequisites
 
@@ -9,26 +9,18 @@ Please make sure that you're running Ruby 1.8.7+ and you've run
 
 ## Setup Authentication
 
-This API uses OAuth 2. You can learn more about
-[Google APIs and OAuth 2](https://developers.google.com/accounts/docs/OAuth2).
+This API uses OAuth 2.0. Learn more about Google APIs and OAuth 2.0 here:
+https://developers.google.com/accounts/docs/OAuth2
 
 Or, if you'd like to dive right in, follow these steps.
- - Visit the [API Console](https://code.google.com/apis/console/) to register
-   your application.
- - From the "Project Home" screen, activate access to "Google+ API".
- - Click on "API Access" in the left column
- - Click the button labeled "Create an OAuth 2.0 client ID"
- - Give your application a name and click "Next"
- - Select "Web application" as the "Application type"
- - Enter "localhost:9292" as the site location
- - Click "Create client ID"
- - Edit your client settings
- - Change "Authorized Redirect URIs" from the default to
-   "http://localhost:9292/auth/google/callback".
-   Note that in production you'll want to use SSL.
 
-Edit the `client_secrets.json` file and enter the client ID & secret that you
-retrieved from the API Console:
+- Visit https://console.developers.google.com/start/api?id=plus to create or select a project in the Google Developers Console and automatically turn on the API. Click Continue, then Go to credentials.
+- At the top of the page, select the OAuth consent screen tab. Select an Email address, enter a Product name if not already set, and click the Save button.
+- Select the Credentials tab, click the Add credentials button and select OAuth 2.0 client ID.
+- Select the application type Other, enter the name "Drive API Quickstart", and click the Create button.
+- Click OK to dismiss the resulting dialog.
+- Click the (Download JSON) button to the right of the client ID. Move this file to your working directory and rename it client_secrets.json.
+
 
 ## Running the Sample
 

@@ -19,32 +19,12 @@ https://developers.google.com/accounts/docs/OAuth2
 
 Or, if you'd like to dive right in, follow these steps.
 
-**Old Google Developers Console**
-
- - Visit https://code.google.com/apis/console/ to register your application.
- - From the "Project Home" screen, activate access to "Calendar API".
- - Click on "API Access" in the left column
- - Click the button labeled "Create an OAuth2 client ID"
- - Give your application a name and click "Next"
- - Select "Web Application" as the "Application type"
- - Under "Your Site or Hostname" select "http://" as the protocol and enter
-   "localhost" for the domain name
- - click "Create client ID"
-
-
-**New Google Developers Console**
-
- - Visit https://code.google.com/apis/console/ to register your application.
- - Click "APIs" within the "API's & auth" section in the left column
- - Locate the "Calendar API" and activate the access to it.
- - Click "Registered apps" then click "REGISTER APP"
- - Give your application a name and Select "Web application" for the "Platform" then click "Register"
- - To setup your application's authorization credentials, click on "OAuth 2.0 Client ID"
- - Change the "Redirect URI" to  "http://localhost:4567/oauth2callback" and "Web Origin" to "http://localhost:4567"
-
-
-Download the JSON file with the OAuth2 credentials and either rename it to "calendar.rb-oauth2.json" or 
-rename it to client_secrets.json, with this the api-client library picks the credentials without further configuration.
+- Visit https://console.developers.google.com/start/api?id=calendar to create or select a project in the Google Developers Console and automatically turn on the API. Click Continue, then Go to credentials.
+- At the top of the page, select the OAuth consent screen tab. Select an Email address, enter a Product name if not already set, and click the Save button.
+- Select the Credentials tab, click the Add credentials button and select OAuth 2.0 client ID.
+- Select the application type Other, enter the name "Calendar API Quickstart", and click the Create button.
+- Click OK to dismiss the resulting dialog.
+- Click the (Download JSON) button to the right of the client ID. Move this file to your working directory and rename it client_secrets.json.
 
 ## Running the Sample
 
