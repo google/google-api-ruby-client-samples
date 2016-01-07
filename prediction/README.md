@@ -6,7 +6,8 @@ Please make sure that you're running Ruby 1.8.7+ and you've run
 # APIs Console Project Setup
 
 If you have not yet, you must set your APIs Console project to enable Prediction
-API and Google Storage. Go to APIs Console https://code.google.com/apis/console/
+API and Google Storage. Go to Google Developers Console
+https://console.developers.google.com
 and select the project you want to use. Next, go to Services, and enable both
 Prediction API and Google Storage. You may also need to enable Billing (Billing)
 in the left menu.
@@ -14,11 +15,11 @@ in the left menu.
 # Data Setup
 
 Before you can run the prediction sample prediction.rb, you must load some csv
-formatted data into Google Storage. 
+formatted data into Google Storage.
 
-1 - You must first create the bucket you want to use. This can be done 
-with the gsutil function or via the web UI (Storage Access) in the Google 
-APIs Console. i.e. 
+1 - You must first create the bucket you want to use. This can be done
+with the gsutil function or via the web UI (Storage Access) in the Google
+APIs Console. i.e.
 
     $ gsutil mb gs://BUCKET
 
@@ -57,20 +58,20 @@ from the API Access page.
 
 Usage
 -----
-At this, point, you should have 
+At this, point, you should have
  - Enabled your APIs Console account
  - Created a storage bucket, if required
  - Uploaded some data to Google Storage
  - Modified the script to point the 'datafile' variable to the BUCKET/OBJECT name
  - Modified the script to put your credentials in
- 
-We can now run the service! 
+
+We can now run the service!
 
     $ bundle exec ruby prediction.rb
 
 This should start a service on `http://localhost:4567`. When you hit the service,
 your ruby logs should show the Prediction API calls, and print the prediction
-output in the debug. 
+output in the debug.
 
 This sample currently does not cover some newer features of Prediction API such
 as streaming training, hosted models or class weights. If there are any

@@ -5,26 +5,17 @@ minutes you'll have a simple Drive app that uploads a file to Google Drive.
 
 ## Enable the Drive API
 
-First, you need to enable the Drive API for your app. You can do this in your
-app's API project in the [Google APIs
-Console](https://code.google.com/apis/console/).
+This API uses OAuth 2.0. Learn more about Google APIs and OAuth 2.0 here:
+https://developers.google.com/accounts/docs/OAuth2
 
-1. Create an API project in the [Google APIs
-   Console](https://code.google.com/apis/console/).
-2. Select the **Services** tab in your API project, and enable the Drive API.
-3. Select the **API Access** tab in your API project, and click **Create an
-   OAuth 2.0 client ID**.
-4. In the **Branding Information** section, provide a name for your application
-   (e.g. "Drive Quickstart Sample"), and click **Next**.  Providing a product
-   logo is optional.
-5. In the **Client ID Settings** section, do the following:
-      1. Select **Installed application** for the **Application type**
-         (or **Web application** for the JavaScript sample).
-      2. Select **Other** for the **Installed application type**.
-      3. Click **Create Client ID**.
-6. In the **API Access** page, locate the section **Client ID for installed
-   applications**, and click "Download JSON" and save the file as 
-   `client_secrets.json` in your home directory.
+Or, if you'd like to dive right in, follow these steps.
+
+- Visit https://console.developers.google.com/start/api?id=drive to create or select a project in the Google Developers Console and automatically turn on the API. Click Continue, then Go to credentials.
+- At the top of the page, select the OAuth consent screen tab. Select an Email address, enter a Product name if not already set, and click the Save button.
+- Select the Credentials tab, click the Add credentials button and select OAuth 2.0 client ID.
+- Select the application type Other, enter the name "Drive API Quickstart", and click the Create button.
+- Click OK to dismiss the resulting dialog.
+- Click the (Download JSON) button to the right of the client ID. Move this file to your working directory and rename it client_secrets.json.
 
 ## Install the Google Client Library
 
