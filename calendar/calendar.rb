@@ -87,7 +87,7 @@ get '/oauth2callback' do
 end
 
 get '/' do
-  # Fetch list of events on the user's default calandar
+  # Fetch list of events on the user's default calendar
   result = api_client.execute(:api_method => calendar_api.events.list,
                               :parameters => {'calendarId' => 'primary'},
                               :authorization => user_credentials)
